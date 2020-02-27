@@ -18,7 +18,7 @@ class Status
         self::TO_REVIEW,
         self::PUBLISHED
     ];
-    /** @var string */
+
     private string $status;
 
     public function __construct(string $status)

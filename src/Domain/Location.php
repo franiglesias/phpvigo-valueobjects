@@ -6,41 +6,28 @@ namespace App\Domain;
 
 use InvalidArgumentException;
 
-use function abs;
-
 class Location
 {
-    private float $long;
-    private float $lat;
 
-    public function __construct(float $long, float $lat)
+    private string $name;
+    private Coordinates $coordinates;
+
+    public function __construct(string $name, Coordinates $coordinates)
     {
-        if (abs($long) > 180) {
-            throw new InvalidArgumentException('Invalid longitude');
+        if (!$name) {
+            throw new InvalidArgumentException('No location name provided');
         }
-        if (abs($lat) > 90) {
-            throw new InvalidArgumentException('Invalid latitude');
-        }
-
-        $this->long = $long;
-        $this->lat = $lat;
+        $this->name = $name;
+        $this->coordinates = $coordinates;
     }
 
-    public function long(): float
+    public function name(): string
     {
-        return $this->long;
+        return $this->name;
     }
 
-    public function lat(): float
+    public function coordinates(): Coordinates
     {
-        return $this->lat;
-    }
-
-    public function move(float $deltaLong, float $deltaLat): Location
-    {
-        $newLong = $this->long() + $deltaLong;
-        $newLat = $this->lat() + $deltaLat;
-
-        return new self($newLong, $newLat);
+        return $this->coordinates;
     }
 }
